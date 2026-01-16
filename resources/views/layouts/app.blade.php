@@ -19,17 +19,17 @@
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
 
   <title>
-  FasEase
-  @if(app()->bound('currentOrganization'))
-      x 
-      {{ app('currentOrganization')->name }}
-  @else
-      - Main
-  @endif
-  @hasSection('title')
-      | @yield('title')
-  @endif
-</title>
+    FasEase
+    @if(app()->bound('currentOrganization'))
+        x 
+        {{ app('currentOrganization')->name }}
+    @else
+        - Main
+    @endif
+    @hasSection('title')
+        | @yield('title')
+    @endif
+  </title>
 
 
   <!-- Fonts -->
@@ -45,6 +45,7 @@
 
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.3') }}" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('assets/css/user-dashboard.css') }}" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }}">

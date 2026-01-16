@@ -1,0 +1,120 @@
+/* --- Dashboard Custom Styles --- */
+
+.rounded-xl {
+    border-radius: 16px !important;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* === BANNER SECTION BARU === */
+.main-banner {
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* atur brightness */
+    z-index: 1;
+}
+
+.banner-content {
+    padding: 4rem;
+    position: relative;
+    z-index: 2; /* atur overlay */
+    width: 100%; 
+}
+
+.banner-title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+}
+
+.banner-desc {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.1rem;
+}
+
+/* Tombol di banner */
+.btn-banner {
+    background-color: #fff;
+    color: #333;
+    font-weight: bold;
+    border: none;
+}
+
+.btn-banner:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+
+/* --- Category Section --- */
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.category-card {
+    background: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border-color: transparent;
+    transform: translateY(-5px);
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    font-size: 1.5rem;
+}
+
+.category-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .banner-content {
+        padding: 2rem;
+        text-align: center;
+    }
+    .banner-title {
+        font-size: 2rem;
+    }
+}
