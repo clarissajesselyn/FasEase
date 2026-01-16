@@ -38,6 +38,7 @@ class UserController extends Controller
             'phone' => ['required', 'max:15'],
             'role' => ['required'],
             'organization_id' => ['required'],
+            'is_active' => ['required'],
         ]);
         $attributes['password'] = bcrypt($attributes['password'] );
         // $attributes['role'] = 'superadmin';
@@ -68,6 +69,7 @@ class UserController extends Controller
             'phone' => ['required', 'max:15'],
             'role' => ['required'],
             'organization_id' => ['required'],
+            'is_active' => ['required'],
         ]);
 
         $user->update($attributes);

@@ -26,7 +26,8 @@ class User extends Authenticatable
         'organization_id',
         'notes',
         'login_token',
-        'is_active'
+        'is_active',
+        'login_at'
     ];
 
     /**

@@ -16,4 +16,9 @@ class Organization extends Model
         'location',
         'image'
     ];
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
 }

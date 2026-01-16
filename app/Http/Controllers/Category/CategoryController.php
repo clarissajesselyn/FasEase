@@ -55,7 +55,7 @@ class CategoryController extends Controller
         
         Category::create($input);
         session()->flash('success', 'Category has been created.');
-        return redirect('category-management');
+        return redirect()->route('org.category-management-index');
     }
 
 
@@ -94,13 +94,13 @@ class CategoryController extends Controller
 
         Category::where('slug', $slug)->update($input);
         session()->flash('success', 'Category has been updated.');
-        return redirect('category-management');
+        return redirect()->route('org.category-management-index');
     }
 
     public function destroy($slug)
     {
         Category::where('slug', $slug)->delete();
         session()->flash('success', 'Category has been deleted.');
-        return redirect('category-management');
+        return redirect()->route('org.category-management-index');
     }
 }

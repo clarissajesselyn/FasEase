@@ -8,15 +8,16 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Users</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Pending Request</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $totalUsers }}
+                  {{ $pendingBookings }}
+                  <span class="text-danger text-sm font-weight-bolder">Need Action</span>
                 </h5>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
+                <i class="fa fa-stopwatch text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -30,15 +31,16 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Organizations</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Currently Borrowed</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{  $totalOrganizations }}
+                  {{ $activeBookings }}
+                  <span class="text-success text-sm font-weight-bolder">Items</span>
                 </h5>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                <i class="fa fa-star text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -52,15 +54,15 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Active Users Today</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Assets</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $activeUserToday }}
+                  {{ $totalItems }}
                 </h5>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="fa fa-clock text-lg opacity-10" aria-hidden="true"></i>
+                <i class="fa fa-box text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -74,15 +76,15 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Blocked Users</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Categories</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $blockedUsers }}
+                  {{ $totalCategories }}
                 </h5>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="fa fa-ban text-lg opacity-10" aria-hidden="true"></i>
+                <i class="fa fa-landmark text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -94,68 +96,54 @@
   {{-- Recent users table --}}
   <div class="card mt-4">
       <div class="card-header">
-          <h6>Recent Users</h6>
+          <h6>Pending Booking Requests</h6>
+          <p class="text-sm mb-0">
+            <i class="fa fa-check text-info" aria-hidden="true"></i>
+            Waiting for your approval
+          </p>
       </div>
       <div class="card-body table-responsive">
           <table class="table">
               <thead>
                   <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                      <th>Status</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Item</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Range</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
               </thead>
               <tbody>
-                  @foreach ($recentUsers as $user)
-                      <tr>
-                          <td>{{ $user->name }}</td>
-                          <td>{{ $user->email }}</td>
-                          <td>{{ ucfirst($user->role) }}</td>
-                          <td>
-                            @if($user->is_active)
-                                <span class="badge badge-sm bg-gradient-success">Active</span>
-                            @else
-                                <span class="badge badge-sm bg-gradient-danger">Blocked</span>
-                            @endif
-                          </td>
-                      </tr>
-                  @endforeach
-              </tbody>
-          </table>
-      </div>
-  </div>
-
-  {{-- Recent organizations table --}}
-  <div class="card mt-4">
-      <div class="card-header">
-          <h6>Recent Organizations</h6>
-      </div>
-      <div class="card-body table-responsive">
-          <table class="table">
-              <thead>
+                  @forelse($recentRequests as $booking)
                   <tr>
-                      <th>Name</th>
-                      <th>Members</th>
-                      <th>Location</th>
-                      <th>Status</th>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ $booking->user->name }}</h6>
+                          <p class="text-xs text-secondary mb-0">{{ $booking->user->email }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-xs font-weight-bold">{{ $booking->item->name }}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">
+                        {{ date('d M', strtotime($booking->start_date)) }} - {{ date('d M', strtotime($booking->end_date)) }}
+                      </span>
+                    </td>
+                    <td class="align-middle text-center">
+                      {{-- Contoh Button Action (Sesuaikan route-nya) --}}
+                      <a href="#" class="btn btn-link text-success text-gradient px-3 mb-0"><i class="fa fa-check"></i> Approve</a>
+                      <a href="#" class="btn btn-link text-danger text-gradient px-3 mb-0"><i class="fa fa-times"></i> Reject</a>
+                    </td>
                   </tr>
-              </thead>
-              <tbody>
-                  @foreach ($recentOrganizations as $org)
-                      <tr>
-                          <td>{{ $org->name }}</td>
-                          <td>{{ $org->users()->count() }}</td>
-                          <td>{{ $org->location }}</td>
-                          <td>
-                            @if($org->is_active)
-                                <span class="badge badge-sm bg-gradient-success">Active</span>
-                            @else
-                                <span class="badge badge-sm bg-gradient-danger">Blocked</span>
-                            @endif
-                          </td>
-                      </tr>
-                  @endforeach
+                  @empty
+                  <tr>
+                    <td colspan="4" class="text-center py-4">
+                        <span class="text-sm text-secondary">No pending requests</span>
+                    </td>
+                  </tr>
+                  @endforelse
               </tbody>
           </table>
       </div>
@@ -172,29 +160,28 @@
     </div>
   </div>
 
+
 @endsection
 @push('dashboard')
   <script>
     window.onload = function() {
-      // --- SETUP DATA DARI LARAVEL ---
-      var userData = @json($userCounts); // Data: [10, 5, 20, ...]
+      // --- SETUP DATA BOOKINGS ---
+      var bookingData = @json($bookingChart); 
 
-      // --- KONFIGURASI CHART BARS ---
       var ctx = document.getElementById("chart-bars").getContext("2d");
 
       new Chart(ctx, {
-        type: "bar", 
+        type: "bar",
         data: {
-          
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           datasets: [{
-            label: "New Users",
+            label: "Total Bookings", // Ganti label
             tension: 0.4,
             borderWidth: 0,
             borderRadius: 4,
             borderSkipped: false,
-            backgroundColor: "#cb0c9f", 
-            data: userData,
+            backgroundColor: "#cb0c9f",
+            data: bookingData, // Masukkan data booking
             maxBarThickness: 6
           }, ],
         },

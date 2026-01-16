@@ -14,13 +14,13 @@
 
             {{-- Dashboard --}}
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard', 'org.dashboard') ? 'active' : '' }}"
+                <a class="nav-link {{ request()->routeIs('superadmin.dashboard', 'org.dashboard') ? 'active' : '' }}"
                 href="{{ app()->bound('currentOrganization')
                             ? route('org.dashboard', app('currentOrganization')->slug)
-                            : route('dashboard') }}">
+                            : route('superadmin.dashboard') }}">
                     
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-gauge {{ request()->routeIs('dashboard', 'org.dashboard') ? 'text-white' : 'text-dark' }}"></i>
+                        <i class="fas fa-gauge {{ request()->routeIs('superadmin.dashboard', 'org.dashboard') ? 'text-white' : 'text-dark' }}"></i>
                     </div>
 
                     <span class="nav-link-text ms-1">Dashboard</span>
@@ -32,32 +32,40 @@
             </li>
 
             {{-- User Profile --}}
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('user-profile') ? 'active' : '' }}" href="{{ url('user-profile') }}">
-                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-user {{ Request::is('user-profile') ? 'text-white' : 'text-dark' }}"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">User Profile</span>
-                </a>
-            </li>
+            @if(session('login_type') === 'tenant')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('org.user-profile-index') ? 'active' : '' }}" 
+                    href="{{ route('org.user-profile-index') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-user {{ request()->routeIs('org.user-profile-index') ? 'text-white' : 'text-dark' }}"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">User Profile</span>
+                    </a>
+                </li>
+            @elseif(session('login_type') === 'superadmin')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('superadmin.user-profile-index') ? 'active' : '' }}" 
+                    href="{{ route('superadmin.user-profile-index') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-user {{ request()->routeIs('superadmin.user-profile-index') ? 'text-white' : 'text-dark' }}"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">User Profile</span>
+                    </a>
+                </li>
+            @endif
 
-            {{-- Copy link login --}}
-            @if (app()->bound('currentOrganization') && auth()->user()?->login_token)
+            {{-- Copy Login Link --}}
+            @if(session('login_type') === 'tenant' && session('login_token'))
             <li class="nav-item pb-2">
-                <a href="javascript:void(0)"
-                class="nav-link"
-                id="copy-login-link"
-                data-login-url="{{ url('/login/organization/' . auth()->user()->login_token) }}">
-
+                <a href="javascript:void(0)" class="nav-link" id="copy-login-link"
+                data-login-url="{{ url('/login/organization/' . session('login_token')) }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-link text-dark"></i>
                     </div>
-
                     <span class="nav-link-text ms-1">Copy Login Link</span>
                 </a>
             </li>
             @endif
-
 
 
             <li class="nav-item mt-2">

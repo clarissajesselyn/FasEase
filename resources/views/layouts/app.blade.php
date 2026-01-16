@@ -87,6 +87,8 @@
   <script src="{{ asset('assets/js/sidebar.js') }}"></script>
 
 
+  {{-- Chart --}}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

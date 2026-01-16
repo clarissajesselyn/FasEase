@@ -21,11 +21,11 @@ use App\Http\Controllers\Item\ItemController;
 Route::middleware('guest')->group(function () {
 
     // Login & Register Superadmin
-    Route::get('/login/fasease', [SessionsController::class, 'create'])->name('login-superadmin-index');
-    Route::post('/session/fasease', [SessionsController::class, 'store'])->name('login-superadmin-store');
+    Route::get('fasease/login', [SessionsController::class, 'create'])->name('login-superadmin-index');
+    Route::post('fasease/session', [SessionsController::class, 'store'])->name('login-superadmin-store');
 
-    Route::get('/register/fasease', [RegisterController::class, 'create'])->name('register-superadmin-index');
-    Route::post('/register/fasease', [RegisterController::class, 'store'])->name('register-superadmin-store');
+    Route::get('fasease/register', [RegisterController::class, 'create'])->name('register-superadmin-index');
+    Route::post('fasease/register', [RegisterController::class, 'store'])->name('register-superadmin-store');
 
     // Password Reset (Global)
     Route::get('/login/forgot-password', [ResetController::class, 'create']);
@@ -41,16 +41,13 @@ Route::middleware('guest')->group(function () {
 */
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [HomeController::class, 'home']);
+    // Route::get('/', [HomeController::class, 'home']);
 
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
     Route::get('/profile', fn () => view('profile'))->name('profile');
     
 
     Route::get('/logout', [SessionsController::class, 'destroy'])->name('logout');
-
-    Route::get('/user-profile', [InfoUserController::class, 'create']);
-    Route::post('/user-profile', [InfoUserController::class, 'store']);
 });
 
 /*
@@ -59,6 +56,9 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::get('/', [HomeController::class, 'home'])->name('superadmin.dashboard');
+    Route::get('fasease/user-profile', [InfoUserController::class, 'create'])->name('superadmin.user-profile-index');
+    Route::post('fasease/user-profile', [InfoUserController::class, 'store'])->name('superadmin.user-profile-store');
 
     // User Management
     Route::prefix('user-management')->group(function () {
@@ -104,6 +104,8 @@ Route::middleware(['auth', 'tenant', 'admin'])->group(function () {
 
     Route::get('/organization/dashboard', [HomeController::class, 'home_tenant'])
         ->name('org.dashboard');
+    Route::get('/user-profile/fasease', [InfoUserController::class, 'create'])->name('org.user-profile-index');
+    Route::post('/user-profile/fasease', [InfoUserController::class, 'store'])->name('org.user-profile-store');
 
     // Category Management
     Route::prefix('organization/category-management')->group(function () {

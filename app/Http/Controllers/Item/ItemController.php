@@ -22,9 +22,8 @@ class ItemController extends Controller
     }
 
     public function create(){
-        $categories = Category::all();
-        $organizations = Organization::all();
-        return view('item.item-add', compact('categories', 'organizations'));
+        $categories = Category::where('organization_id', app('currentOrganization')->id)->get();
+        return view('item.item-add', compact('categories', ));
     }
 
     public function store(Request $request){
@@ -56,14 +55,13 @@ class ItemController extends Controller
 
         Item::create($input);
         session()->flash('success', 'Item has been created.');
-        return redirect('item-management');
+        return redirect()->route('org.item-management-index');
     }
 
     public function edit($slug){
         $data = Item::where('slug', $slug)->first();
-        $categories = Category::all();
-        $organizations = Organization::all();
-        return view('item.item-edit', compact('data', 'categories', 'organizations'));
+        $categories = Category::where('organization_id', app('currentOrganization')->id)->get();
+        return view('item.item-edit', compact('data', 'categories'));
     }
 
     public function update(Request $request, $slug){
@@ -92,13 +90,13 @@ class ItemController extends Controller
 
         Item::where('slug', $slug)->update($input);
         session()->flash('success', 'Item has been updated.');
-        return redirect('item-management');
+        return redirect()->route('org.item-management-index');
     }
 
     public function destroy($slug)
     {
         Item::where('slug', $slug)->delete();
         session()->flash('success', 'Item has been deleted.');
-        return redirect('item-management');
+        return redirect()->route('org.item-management-index');
     }
 }

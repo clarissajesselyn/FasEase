@@ -38,7 +38,9 @@ class SessionsController extends Controller
                 'login_type' => 'superadmin'
             ]);
 
-            return redirect()->route('dashboard')->with([
+            $user->login_at = now();
+            $user->save();
+            return redirect()->route('superadmin.dashboard')->with([
                 'success' => 'You are logged in as Super Admin.'
             ]);
         }
@@ -93,6 +95,8 @@ class SessionsController extends Controller
             'login_token' => $request->token
         ]);
 
+        $user->login_at = now();
+        $user->save();
         return redirect()->route('org.dashboard');
     }
 

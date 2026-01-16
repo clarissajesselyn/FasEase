@@ -33,8 +33,10 @@ class RegisterController extends Controller
             'login_type' => 'superadmin'
         ]);
 
+        $user->login_at = now();
+        $user->save();
         session()->flash('success', 'Your account has been created.');
-        return redirect()->route('dashboard');
+        return redirect()->route('superadmin.dashboard');
     }
 
     public function store_organization(Request $request)
@@ -55,7 +57,9 @@ class RegisterController extends Controller
             'login_type' => 'superadmin'
         ]);
 
+        $user->login_at = now();
+        $user->save();
         session()->flash('success', 'Your account has been created.');
-        return redirect()->route('dashboard');
+        return redirect()->route('org.dashboard');
     }
 }

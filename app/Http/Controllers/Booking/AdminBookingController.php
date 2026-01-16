@@ -21,7 +21,7 @@ class AdminBookingController extends Controller
     public function show_booking_history(){
         $bookings = Booking::with(['user', 'item'])
             ->where('organization_id', auth()->user()->organization_id)
-            ->whereIn('status', ['approved', 'rejected'])
+            ->whereIn('status', ['approved', 'rejected', 'pending'])
             ->latest()
             ->get();
 

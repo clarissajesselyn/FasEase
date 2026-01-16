@@ -91,18 +91,6 @@
                 </div>
 
                 <div class="mb-3">
-                  <label for="organization_id" class="form-label">Organization</label>
-                  <select class="form-control" name="organization_id" id="organization_id" aria-label="Organization" aria-describedby="organization">
-                    <option value="" disabled selected>Select Organization</option>
-                    @forelse($organizations as $organization)
-                      <option value="{{ $organization->id }}" {{ old('organization') == $organization->id ? 'selected' : '' }}>{{ $organization->name }}</option>
-                    @empty
-                      <option value="">No data</option>
-                    @endforelse
-                  </select>
-                </div>
-
-                <div class="mb-3">
                   <label for="image" class="form-label">Item Image</label>
                   <input type="file" class="form-control" name="image" id="image" aria-label="Image">
                   @error('image')
