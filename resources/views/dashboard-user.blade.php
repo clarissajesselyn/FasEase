@@ -96,7 +96,7 @@
     {{-- BANNER AREA --}}
     <div class="row mb-5 mt-5">
         <div class="col-12">
-            <div id="mainCarousel" class="carousel slide rounded-xl overflow-hidden shadow-sm" data-bs-ride="carousel" data-bs-interval="3000">
+            <div id="mainCarousel" class="carousel slide rounded-xl overflow-hidden shadow-sm" data-bs-ride="carousel" data-bs-interval="3500">
                 <div class="carousel-inner">
                     
                     <div class="carousel-item active">
@@ -157,14 +157,14 @@
     <div class="row g-4">
         @foreach($categories as $category)
         <div class="col-6 col-md-4 col-lg-2">
-            <a href="#" class="card category-card rounded-xl text-decoration-none text-dark">
+            <a href="{{ route('org.user-item-index', $category->slug) }}" class="card category-card rounded-xl text-decoration-none text-dark">
                 
                 <div class="category-icon overflow-hidden p-0"> 
                     
                     <img src="{{ asset($category->image) }}" 
                         alt="{{ $category->name }}" 
                         class="w-100 h-100 rounded-circle"
-                        style="object-fit: cover;">
+                        sptyle="object-fit: cover;">
                         
                 </div>
                 

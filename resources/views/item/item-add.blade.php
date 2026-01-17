@@ -57,6 +57,35 @@
                   @enderror
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="opening_time" class="form-label">Opening Time</label>
+                        <input type="time"
+                              class="form-control"
+                              name="opening_time"
+                              id="opening_time"
+                              value="{{ old('opening_time') }}">
+
+                        @error('opening_time')
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="closing_time" class="form-label">Closing Time</label>
+                        <input type="time"
+                              class="form-control"
+                              name="closing_time"
+                              id="closing_time"
+                              value="{{ old('closing_time') }}">
+
+                        @error('closing_time')
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+
                 <div class="mb-3">
                   <label class="form-label d-block">Status</label>
                   

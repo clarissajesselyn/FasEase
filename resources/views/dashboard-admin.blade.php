@@ -165,7 +165,6 @@
 @push('dashboard')
   <script>
     window.onload = function() {
-      // --- SETUP DATA BOOKINGS ---
       var bookingData = @json($bookingChart); 
 
       var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -235,7 +234,6 @@
         },
       });
 
-      // --- KONFIGURASI CHART LINE (MOBILE APPS) ---
       var ctx2 = document.getElementById("chart-line").getContext("2d");
 
       var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
@@ -257,7 +255,7 @@
               tension: 0.4,
               borderWidth: 0,
               pointRadius: 0,
-              borderColor: "#cb0c9f",
+              borderColor: "#17c1e8",
               borderWidth: 3,
               backgroundColor: gradientStroke1,
               fill: true,

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Booking\AdminBookingController;
 use App\Http\Controllers\Booking\UserBookingController;
+use App\Http\Controllers\Item\UserItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
@@ -43,11 +44,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // Route::get('/', [HomeController::class, 'home']);
-
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-    Route::get('/profile', fn () => view('profile'))->name('profile');
-    
-
     Route::get('/logout', [SessionsController::class, 'destroy'])->name('logout');
 });
 
@@ -145,6 +142,9 @@ Route::middleware(['auth', 'tenant'])->group(function () {
         Route::get('/organization/user/user-profile', [InfoUserController::class, 'create'])->name('org.user-user-profile-index');
         Route::post('organization/user/user-profile', [InfoUserController::class, 'store'])->name('org.user-user-profile-store');
         Route::get('/organization/user/booking-history', [UserBookingController::class, 'show_booking_history'])->name('org.user-booking-history');
+        
+        // Item
+        Route::get('/organization/user/{slug}/item', [UserItemController::class, 'index'])->name('org.user-item-index');
     });
     
 });
