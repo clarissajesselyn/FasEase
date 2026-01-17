@@ -10,10 +10,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  @if (env('IS_DEMO'))
-      <x-demo-metas></x-demo-metas>
-  @endif
-
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
@@ -60,14 +56,14 @@
     @yield('guest')
   @endguest
 
-  @if(session()->has('success'))
+  {{-- @if(session()->has('success'))
     <div x-data="{ show: true }"
          x-init="setTimeout(() => show = false, 4000)"
          x-show="show"
          class="position-fixed bg-success rounded right-3 text-sm py-2 px-4">
       <p class="m-0">{{ session('success') }}</p>
     </div>
-  @endif
+  @endif --}}
 
   <!-- Core JS Files -->
   <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>

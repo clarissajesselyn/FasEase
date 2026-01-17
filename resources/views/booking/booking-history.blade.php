@@ -66,7 +66,7 @@
                                                     {{ $booking->item->name }}
                                                 </p>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    Qty: {{ $booking->quantity }}
+                                                    Qty: 1
                                                 </p>
                                             </td>
 
@@ -83,8 +83,20 @@
                                             {{-- Status --}}
                                             <td class="align-middle text-center">
                                                 @if ($booking->status === 'approved')
-                                                    <span class="badge badge-sm bg-gradient-success">
+                                                    <span class="badge badge-sm bg-gradient-info">
                                                         Approved
+                                                    </span>
+                                                @elseif ($booking->status === 'pending')
+                                                    <span class="badge badge-sm bg-gradient-secondary">
+                                                        Pending
+                                                    </span>
+                                                @elseif ($booking->status === 'canceled')
+                                                    <span class="badge badge-sm bg-gradient-warning">
+                                                        Canceled
+                                                    </span>
+                                                @elseif ($booking->status === 'completed')
+                                                    <span class="badge badge-sm bg-gradient-success">
+                                                        Completed
                                                     </span>
                                                 @else
                                                     <span class="badge badge-sm bg-gradient-danger">
@@ -98,6 +110,10 @@
                                                 @if ($booking->status === 'rejected')
                                                     <span class="text-danger text-xs">
                                                         {{ $booking->reject_reason }}
+                                                    </span>
+                                                @elseif($booking->status === 'canceled')
+                                                    <span class="text-warning text-xs">
+                                                        {{ $booking->cancel_reason }}
                                                     </span>
                                                 @else
                                                     <span class="text-secondary text-xs">

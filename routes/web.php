@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\Booking\AdminBookingController;
-use App\Http\Controllers\Booking\UserBookingController;
-use App\Http\Controllers\Item\UserItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ResetController;
+use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\ResetController;
-use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\InfoUserController;
-use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Organization\OrganizationController;
-use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Item\ItemController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Item\UserItemController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Booking\UserBookingController;
+use App\Http\Controllers\Booking\AdminBookingController;
+use App\Http\Controllers\Organization\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +91,10 @@ Route::middleware('guest')->group(function () {
 
     Route::post('organization/login', [SessionsController::class, 'tenantLogin'])
         ->name('organization.login.submit');
+
+    Route::get('organization/register/{token}', [RegisterController::class, 'create_organization'])->name('organization.register-index');
+    Route::post('organization/register', [RegisterController::class, 'store_organization'])->name('organization.register-store');
+
 });
 
 /*
@@ -142,9 +146,15 @@ Route::middleware(['auth', 'tenant'])->group(function () {
         Route::get('/organization/user/user-profile', [InfoUserController::class, 'create'])->name('org.user-user-profile-index');
         Route::post('organization/user/user-profile', [InfoUserController::class, 'store'])->name('org.user-user-profile-store');
         Route::get('/organization/user/booking-history', [UserBookingController::class, 'show_booking_history'])->name('org.user-booking-history');
+        Route::get('/organization/user/my-bookings', [UserBookingController::class, 'show_user_current_booking'])->name('org.user-current-booking');
         
         // Item
         Route::get('/organization/user/{slug}/item', [UserItemController::class, 'index'])->name('org.user-item-index');
+
+        // Booking
+        Route::post('//organization/user/booking/store', [UserBookingController::class, 'store'])->name('org.user-booking-store');
+        Route::get('/organization/user/booking/check-availability', [UserBookingController::class, 'checkAvailability'])->name('org.user-booking-check');
+        Route::post('/organization/user/booking/{id}/cancel', [UserBookingController::class, 'cancel']);
     });
     
 });

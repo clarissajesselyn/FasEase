@@ -134,3 +134,40 @@
     border-color: #17c1e8;
     color: #fff;
 }
+
+/* Booking  */
+.time-slot-btn {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50px;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    width: fit-content;
+}
+
+.time-slot-btn:hover:not(:disabled) {
+    border-color: #344767;
+    background-color: #f8f9fa;
+}
+
+.time-slot-btn.active {
+    background-color: #344767;
+    color: white;
+    border-color: #344767;
+}
+
+.time-slot-btn:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.btn-submit-booking {
+    transition: all 0.2s ease;
+}
+
+.btn-submit-booking:hover {
+    transform: scale(1.03);
+}

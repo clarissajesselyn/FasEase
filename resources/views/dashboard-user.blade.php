@@ -148,7 +148,7 @@
     <div class="row">
         <div class="col-12">
             <div class="category-header">
-                <h4 class="mb-0 fw-bold">Category</h4>
+                <h4 class="mb-0 fw-bold">Categories</h4>
                 {{-- <a href="#" class="btn btn-sm btn-outline-secondary rounded-pill">View All Categories &rarr;</a> --}}
             </div>
         </div>

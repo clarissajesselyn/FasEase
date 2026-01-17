@@ -118,7 +118,7 @@
                         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fas fa-building {{ Request::is('organization-management') ? 'text-white' : 'text-dark' }}"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Organization Management</span>
+                        <span class="nav-link-text ms-1">Org.Management</span>
                     </a>
                 </li>
             @endif
@@ -179,6 +179,16 @@
             @if (auth()->check() && auth()->user()->role === 'user' && auth()->user()->organization)
                 <li class="nav-item mt-2">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Booking Information</h6>
+                </li>
+
+                {{-- Current Booing --}}
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('org.user-current-booking') ? 'active' : '' }}" href="{{ route('org.user-current-booking') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-book-open {{ Request::is('org.user-current-booking') ? 'text-white' : 'text-dark' }}"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">My Bookings</span>
+                    </a>
                 </li>
 
                 {{-- Booking History --}}

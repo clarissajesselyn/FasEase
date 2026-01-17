@@ -3,7 +3,7 @@
 @section('content')
 
   <section class="min-vh-100 mb-8">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 mx-3 border-radius-lg" style="background-image: url('../assets/img/curved-images/curved14.jpg');">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 mx-3 my-3 border-radius-lg" style="background-image: url('{{ asset('assets/img/curved-images/curved14.jpg') }}');">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
@@ -44,7 +44,7 @@
               </div>
             </div>
             <div class="card-body">
-              <form role="form text-left" method="POST" action="/register">
+              <form role="form text-left" method="POST" action="{{ route('organization.register-store') }}">
                 @csrf
                 <div class="mb-3">
                   <input type="text" class="form-control" placeholder="Name" name="name" id="name" aria-label="Name" aria-describedby="name" value="{{ old('name') }}">
@@ -70,6 +70,8 @@
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
+                <input type="text" name="organization_id" id="organization_id" value="{{ $organization->id }}" hidden>
+                <input type="text" name="organization_token" id="organization_id" value="{{ $organization->token }}" hidden>
                 <div class="form-check form-check-info text-left">
                   <input class="form-check-input" type="checkbox" name="agreement" id="flexCheckDefault" checked>
                   <label class="form-check-label" for="flexCheckDefault">
@@ -82,7 +84,7 @@
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href="login" class="text-dark font-weight-bolder">Sign in</a></p>
+                <p class="text-sm mt-3 mb-0">Already have an account? <a href="{{ route('organization.login.link', $organization->token) }}" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
             </div>
           </div>

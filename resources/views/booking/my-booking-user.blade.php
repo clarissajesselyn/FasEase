@@ -9,9 +9,9 @@
                 <div class="card mb-4">
 
                     <div class="card-header pb-0">
-                        <h6>Booking Requests</h6>
+                        <h6>Booking History</h6>
                         <p class="text-sm text-secondary mb-0">
-                            Pending booking requests waiting for approval
+                            Pending booking records
                         </p>
                     </div>
 
@@ -66,7 +66,7 @@
                                                     {{ $booking->item->name }}
                                                 </p>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    Qty: {{ $booking->quantity }}
+                                                    Qty: 1
                                                 </p>
                                             </td>
 
@@ -82,36 +82,23 @@
 
                                             {{-- Status --}}
                                             <td class="align-middle text-center">
-                                                <span class="badge badge-sm bg-gradient-warning">
+                                                <span class="badge badge-sm bg-gradient-secondary">
                                                     Pending
                                                 </span>
                                             </td>
 
-                                            {{-- Action --}}
-                                            <td class="align-middle text-center">
-                                                <form method="POST"
-                                                      action="{{ url('/organization/booking/' . $booking->id . '/approve') }}"
-                                                      class="d-inline">
-                                                    @csrf
-                                                    <button class="btn btn-success btn-sm mb-0">
-                                                        Approve
-                                                    </button>
-                                                </form>
-
-                                                @if ($booking->status == 'pending')
-                                                    <button class="btn btn-danger btn-sm mb-0"
-                                                            onclick="showRejectModal({{ $booking->id }})">
-                                                        Reject
-                                                    </button>
-                                                @else
-                                                    -
-                                                @endif
+                                            {{-- Notes --}}
+                                            <td class="align-middle text-center text-sm">
+                                                <button class="btn btn-danger btn-sm mb-0"
+                                                        onclick="showCancelModal({{ $booking->id }})">
+                                                    Cancel
+                                                </button>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
                                             <td colspan="5" class="text-center py-4 text-secondary">
-                                                No pending booking requests
+                                                No booking available
                                             </td>
                                         </tr>
                                     @endforelse
@@ -128,18 +115,18 @@
 </main>
 
 {{-- Reject Modal --}}
-<div class="modal fade" id="rejectModal" tabindex="-1">
+<div class="modal fade" id="cancelModal" tabindex="-1">
     <div class="modal-dialog">
-        <form method="POST" id="rejectForm">
+        <form method="POST" id="cancelForm">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">Reject Booking</h6>
+                    <h6 class="modal-title">Cancel Booking</h6>
                 </div>
 
                 <div class="modal-body">
-                    <label class="form-label">Reject Reason</label>
-                    <textarea name="reject_reason"
+                    <label class="form-label">Cancel Reason</label>
+                    <textarea name="cancel_reason"
                               class="form-control"
                               rows="3"
                               required></textarea>
@@ -149,12 +136,12 @@
                     <button type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                        Cancel
+                        Back
                     </button>
 
                     <button type="submit"
                             class="btn btn-danger">
-                        Reject
+                        Cancel Booking
                     </button>
                 </div>
             </div>
@@ -164,12 +151,10 @@
 
 @endsection
 
-@push('js')
 <script>
-    function showRejectModal(id) {
-        const form = document.getElementById('rejectForm');
-        form.action = `/organization/booking/${id}/reject`;
-        new bootstrap.Modal(document.getElementById('rejectModal')).show();
+    function showCancelModal(id) {
+        const form = document.getElementById('cancelForm');
+        form.action = `/organization/user/booking/${id}/cancel`;
+        new bootstrap.Modal(document.getElementById('cancelModal')).show();
     }
 </script>
-@endpush
